@@ -1,0 +1,199 @@
+<odoo>
+  <data>
+
+    <template id="assets_backend" name="myaccount_addons assets frontend" inherit_id="website.assets_frontend">
+             <xpath expr="." position="inside">
+                 <link rel="stylesheet" href="/myaccount_addons/static/src/css/myaccount_addons.css"/>
+             </xpath>
+         </template>
+        <template id="portal_my_auctions" name="Portal My Home :Auctions" inherit_id="portal.portal_my_home" priority="40">
+          <xpath expr="//ul[hasclass('o_portal_docs')]" position="after">
+
+              <div class='col-12 col-md col-lg-9'>
+                </div>
+           <t t-foreach="companies1" t-as="company1">
+              <div class="row smart_table">
+              <div class="col-12 col-md col-lg-7">
+                <table class="table">
+
+  <tbody>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+
+      <td>Overdue Charges</td>
+
+      <form t-attf-action="/wallet/balance/Overdue" method="post">
+  <td>
+  <t t-if="company1['a']">
+  <t t-set="Overdue" t-value="company1['a']" />
+  </t>
+  <t t-else="company1['a']">
+    <t t-set="Overdue" t-value="0" />
+  </t>
+  <span t-esc="Overdue"  t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+  <input type="hidden" name="Overdue" t-att-value="Overdue" />
+  <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+
+  </td>
+
+     <td> <button type="submit" id="add_payment" class="btn btn-primary pull-right" style="max-height:50px;"><i class="fa fa-arrow-circle-right"/><span class='d-none d-md-inline'> Pay Now</span></button></td>
+  </form>
+
+    </tr>
+    <tr>
+      <td>Current Charges</td>
+      <form target="_self" action="/shop/payment/transaction/" method="post" class="pull-right">
+      <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+<td>
+  <t t-if="company1['a']">
+  <t t-set="current" t-value="company1['a']" />
+  </t>
+  <t t-else="company1['a']">
+    <t t-set="current" t-value="0" />
+  </t>
+        <span t-esc="current" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+<input type="hidden" name="current" t-att-value="current" />
+</td>
+
+     <td> <button type="submit" id="add_payment" class="btn btn-primary pull-right" style="max-height:50px;"><i class="fa fa-arrow-circle-right"/><span class='d-none d-md-inline'> Pay Now</span></button></td>
+</form>
+    </tr>
+    <tr>
+      <td>Total Amount Due</td>
+      <form t-attf-action="/wallet/balance/Overdue" method="post">
+<td>
+  <t t-if="company1['a']">
+  <t t-set="total" t-value="company1['a']" />
+  </t>
+  <t t-else="company1['a']">
+    <t t-set="total" t-value="0" />
+  </t>
+        <span t-esc="total" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+<input type="hidden" name="total" t-att-value="total" />
+<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+</td>
+
+     <td> <button type="submit" id="add_payment" class="btn btn-primary pull-right" style="max-height:50px;"><i class="fa fa-arrow-circle-right"/><span class='d-none d-md-inline'> Pay Now</span></button></td>
+</form>
+    </tr>
+    <tr>
+      <td>Pay Any Amount</td>
+      <form t-attf-action="/wallet/balance/Overdue" method="post">
+
+    <td><input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" /><input type="number" step="any" min="0" class="form-control" name="amount" required="True" placeholder="Enter amount here.."/></td>
+
+     <td>
+        <button type="submit" id="add_payment" class="btn btn-primary pull-right" style="max-height:50px;"><i class="fa fa-arrow-circle-right"/><span class='d-none d-md-inline'> Pay Now</span></button></td>
+  </form>
+    </tr>
+  </tbody>
+</table>
+              </div>
+
+              <div class="col-12 col-md col-lg-5">
+                <table class="table">
+
+  <tbody>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Last Payment Date</td>
+      <td><span t-esc="company1['d']"/></td>
+    </tr>
+    <tr>
+      <td>Last Payment Amount</td>
+      <t t-if="company1['c']">
+      <t t-set="last_amount" t-value="company1['c']" />
+      </t>
+      <t t-else="company1['c']">
+        <t t-set="last_amount" t-value="0" />
+      </t>
+
+      <td><span t-esc="last_amount"  t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/></td>
+
+    </tr>
+
+  </tbody>
+</table>
+                </div>
+              </div>
+
+
+              </t>
+              <div>
+
+            </div>
+            <template id="portal_my_home_invoice" name="Portal My Home : invoice entries" inherit_id="portal.portal_my_home" priority="30">
+                <xpath expr="//ul[hasclass('o_portal_docs')]" position="inside">
+                    <li t-if="invoice_count" class="list-group-item">
+                        <span class="badge" t-esc="invoice_count"/>
+                        <a href="/my/invoices">Invoices</a>
+                    </li>
+                </xpath>
+            </template>
+          </xpath>
+      </template>
+
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="myaccount_addons.list">
+      <field name="name">Myaccount_addons list</field>
+      <field name="model">myaccount_addons.myaccount_addons</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="myaccount_addons.action_window">
+      <field name="name">Myaccount_addons window</field>
+      <field name="res_model">myaccount_addons.myaccount_addons</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="myaccount_addons.action_server">
+      <field name="name">Myaccount_addons server</field>
+      <field name="model_id" ref="model_myaccount_addons_myaccount_addons"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="Myaccount_addons" id="myaccount_addons.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="myaccount_addons.menu_1" parent="myaccount_addons.menu_root"/>
+    <menuitem name="Menu 2" id="myaccount_addons.menu_2" parent="myaccount_addons.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="myaccount_addons.menu_1_list" parent="myaccount_addons.menu_1"
+              action="myaccount_addons.action_window"/>
+    <menuitem name="Server to list" id="myaccount_addons" parent="myaccount_addons.menu_2"
+              action="myaccount_addons.action_server"/>
+    -->
+  </data>
+</odoo>

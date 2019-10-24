@@ -1,0 +1,19 @@
+.kamah{
+	border-bottom:1px solid rgba(0, 0, 0, 0.125) !important;
+	margin-bottom:15px;
+	background-color: #fff;
+}
+.smart_table{
+	border: 1px solid rgba(0, 0, 0, 0.125) !important;
+	border-radius:15px !important;
+	background-color: #fff !important;
+}
+.btn-primary
+{
+	color:#fff !important;
+	font-size: 0.875rem !important;
+}
+.col-lg-6{
+	flex: 0% !important ;
+	max-width: 100% !important;
+}
