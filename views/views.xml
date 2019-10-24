@@ -27,10 +27,10 @@
 
       <form t-attf-action="/wallet/balance/Overdue" method="post">
   <td>
-  <t t-if="company1['a']">
-  <t t-set="Overdue" t-value="company1['a']" />
+  <t t-if="company1['o']">
+  <t t-set="Overdue" t-value="company1['o']" />
   </t>
-  <t t-else="company1['a']">
+  <t t-else="company1['o']">
     <t t-set="Overdue" t-value="0" />
   </t>
   <span t-esc="Overdue"  t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
@@ -65,10 +65,10 @@
       <td>Total Amount Due</td>
       <form t-attf-action="/wallet/balance/Overdue" method="post">
 <td>
-  <t t-if="company1['a']">
-  <t t-set="total" t-value="company1['a']" />
+  <t t-if="company1['b']">
+  <t t-set="total" t-value="company1['b']" />
   </t>
-  <t t-else="company1['a']">
+  <t t-else="company1['b']">
     <t t-set="total" t-value="0" />
   </t>
         <span t-esc="total" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
