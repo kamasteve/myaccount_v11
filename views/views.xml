@@ -7,7 +7,7 @@
              </xpath>
          </template>
         <template id="portal_my_auctions" name="Portal My Home :Auctions" inherit_id="portal.portal_my_home" priority="40">
-          <xpath expr="//ul[hasclass('o_portal_docs')]" position="after">
+          <xpath expr="//ul[hasclass('o_portal_docs')]" position="before">
 
               <div class='col-12 col-md col-lg-9'>
                 </div>
@@ -17,7 +17,7 @@
                 <table class="table">
 
   <tbody>
-    <tr>
+    <tr class="no_border">
       <td></td>
       <td></td>
     </tr>
@@ -97,7 +97,7 @@
                 <table class="table">
 
   <tbody>
-    <tr>
+    <tr class="no_border">
       <td></td>
       <td></td>
     </tr>
@@ -125,20 +125,18 @@
 
 
               </t>
-              <div>
 
-            </div>
-            <template id="portal_my_home_invoice" name="Portal My Home : invoice entries" inherit_id="portal.portal_my_home" priority="30">
-                <xpath expr="//ul[hasclass('o_portal_docs')]" position="inside">
-                    <li t-if="invoice_count" class="list-group-item">
-                        <span class="badge" t-esc="invoice_count"/>
-                        <a href="/my/invoices">Invoices</a>
-                    </li>
-                </xpath>
-            </template>
+
           </xpath>
       </template>
-
+      <template id="portal_my_home_invoice_2" name="Portal My Home : invoice entries" inherit_id="portal.portal_my_home" priority="40">
+          <xpath expr="//div[hasclass('smart_table')]" position="after">
+              <li class="list-group-item">
+                  <span class="badge" t-esc="invoice_count"/>
+                  <a href="/my/invoices">Activity Statement</a>
+              </li>
+          </xpath>
+      </template>
     <!-- explicit list view definition -->
     <!--
     <record model="ir.ui.view" id="myaccount_addons.list">

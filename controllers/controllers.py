@@ -123,6 +123,12 @@ class MyaccountAddons(http.Controller):
         PaymentProcessing.remove_payment_transaction(tx)
         return request.redirect('/shop/confirmation')
 
+    def _prepare_portal_layout_values(self):
+        values = super(PortalAccount, self)._prepare_portal_layout_values()
+        invoice_count = request.env['account.invoice'].search_count(self._get_account_invoice_domain())
+        values['invoice_count'] = invoice_count
+        return values
+
 
 
 
