@@ -28,22 +28,7 @@ class MyaccountAddons(http.Controller):
             'companies1': companies1})
 
 
-    @http.route(['/balance/Overdue'], type='http', auth="public", website=True)
-    def wallet_balance_confirm(self, **post):
-        product = request.env['product.product'].sudo().search([('name', '=', 'Wallet Recharge')])
-        name = "Bulk Payment"
-        product_id = product.id
-        add_qty = 0
-        set_qty = 0
-        product.update({'lst_price': post['amount']})
-        # product.lst_price = post['amount']
-        request.website.sale_get_order(force_create=1)._cart_update(
-            product_id=int(product_id),
-            add_qty=float(add_qty),
-            set_qty=float(set_qty),
-            name = Char(name),
-        )
-        return request.redirect("/shop/payment/transaction")
+
 
     @http.route(['/wallet/balance/Overdue'], type='http', auth="public", website=True)
     def wallet_balance_confirm(self, **post):
@@ -59,7 +44,56 @@ class MyaccountAddons(http.Controller):
             add_qty=float(add_qty),
             set_qty=float(set_qty),
         )
-        return request.redirect("/shop/cart")
+        return request.redirect("/shop/payment/")
+
+    @http.route(['/wallet/balance/current'], type='http', auth="public", website=True)
+    def wallet_balance_confirm(self, **post):
+        product = request.env['product.product'].sudo().search([('name', '=', 'Current Charges')])
+
+        product_id = product.id
+        add_qty = 0
+        set_qty = 0
+        product.update({'lst_price': post['current']})
+        # product.lst_price = post['amount']
+        request.website.sale_get_order(force_create=1)._cart_update(
+            product_id=int(product_id),
+            add_qty=float(add_qty),
+            set_qty=float(set_qty),
+        )
+        return request.redirect("/shop/payment/")
+
+    @http.route(['/wallet/balance/amount'], type='http', auth="public", website=True)
+    def wallet_balance_confirm(self, **post):
+        product = request.env['product.product'].sudo().search([('name', '=', 'Pay Any Amount')])
+
+        product_id = product.id
+        add_qty = 0
+        set_qty = 0
+        product.update({'lst_price': post['amount']})
+        # product.lst_price = post['amount']
+        request.website.sale_get_order(force_create=1)._cart_update(
+            product_id=int(product_id),
+            add_qty=float(add_qty),
+            set_qty=float(set_qty),
+        )
+        return request.redirect("/shop/payment/")
+
+    @http.route(['/wallet/balance/total'], type='http', auth="public", website=True)
+    def wallet_balance_confirm(self, **post):
+        product = request.env['product.product'].sudo().search([('name', '=', 'Total Amount Due')])
+
+        product_id = product.id
+        add_qty = 0
+        set_qty = 0
+        product.update({'lst_price': post['total']})
+        # product.lst_price = post['amount']
+        request.website.sale_get_order(force_create=1)._cart_update(
+            product_id=int(product_id),
+            add_qty=float(add_qty),
+            set_qty=float(set_qty),
+        )
+        return request.redirect("/shop/payment/")
+
 
     @http.route('/shop/payment/validate', type='http', auth="public", website=True)
     def payment_validate(self, transaction_id=None, sale_order_id=None, **post):

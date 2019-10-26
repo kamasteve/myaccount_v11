@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+    	<record id="menu_wallet_balance" model="website.menu">
+            <field name="name">Wallet</field>
+            <field name="url">/wallet</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">20</field>
+        </record>
+
+        <record id="product_product_wallet" model="product.template">
+            <field name="name">Overdue Charges</field>
+            <field name="website_published" eval="True"/>
+            <field name="type">service</field>
+            <field name="description_sale">Overdue Charges</field>
+            <field name="taxes_id" eval="False"/>
+
+        </record>
+        <record id="product_product_wallet" model="product.template">
+            <field name="name">Total Amount Due</field>
+            <field name="website_published" eval="True"/>
+            <field name="type">service</field>
+            <field name="description_sale">Total Amount Due</field>
+            <field name="taxes_id" eval="False"/>
+
+        </record>
+        <record id="product_product_wallet" model="product.template">
+            <field name="name">Pay Any Amount</field>
+            <field name="website_published" eval="True"/>
+            <field name="type">service</field>
+            <field name="description_sale">Pay Any Amount</field>
+            <field name="taxes_id" eval="False"/>
+
+        </record>
+        <record id="product_product_wallet" model="product.template">
+            <field name="name">Current Charges</field>
+            <field name="website_published" eval="True"/>
+            <field name="type">service</field>
+            <field name="description_sale">Current Charges</field>
+            <field name="taxes_id" eval="False"/>
+
+        </record>
+
+      
+    </data>
+</openerp>

@@ -13,19 +13,17 @@
                 </div>
            <t t-foreach="companies1" t-as="company1">
               <div class="row smart_table">
-              <div class="col-12 col-md col-lg-7">
+              <div class="col-12 col-md col-lg-8">
                 <table class="table">
 
   <tbody>
-    <tr class="no_border">
-      <td></td>
-      <td></td>
-    </tr>
+
     <tr>
 
       <td>Overdue Charges</td>
 
-      <form t-attf-action="/wallet/balance/Overdue" method="post">
+      <form target="_self" t-attf-action="/wallet/balance/Overdue" method="post" class="pull-right">
+      <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
   <td>
   <t t-if="company1['o']">
   <t t-set="Overdue" t-value="company1['o']" />
@@ -35,7 +33,7 @@
   </t>
   <span t-esc="Overdue"  t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
   <input type="hidden" name="Overdue" t-att-value="Overdue" />
-  <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+
 
   </td>
 
@@ -45,7 +43,7 @@
     </tr>
     <tr>
       <td>Current Charges</td>
-      <form target="_self" action="/shop/payment/transaction/" method="post" class="pull-right">
+      <form target="_self" action="/wallet/balance/current" method="post" class="pull-right">
       <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
 <td>
   <t t-if="company1['a']">
@@ -63,7 +61,8 @@
     </tr>
     <tr>
       <td>Total Amount Due</td>
-      <form t-attf-action="/wallet/balance/Overdue" method="post">
+      <form target="_self" t-attf-action="/wallet/balance/total" method="post" class="pull-right">
+      <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
 <td>
   <t t-if="company1['b']">
   <t t-set="total" t-value="company1['b']" />
@@ -73,7 +72,6 @@
   </t>
         <span t-esc="total" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
 <input type="hidden" name="total" t-att-value="total" />
-<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
 </td>
 
      <td> <button type="submit" id="add_payment" class="btn btn-primary pull-right" style="max-height:50px;"><i class="fa fa-arrow-circle-right"/><span class='d-none d-md-inline'> Pay Now</span></button></td>
@@ -81,7 +79,7 @@
     </tr>
     <tr>
       <td>Pay Any Amount</td>
-      <form t-attf-action="/wallet/balance/Overdue" method="post">
+      <form target="_self" t-attf-action="/wallet/balance/amount" method="post" class="pull-right">
 
     <td><input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" /><input type="number" step="any" min="0" class="form-control" name="amount" required="True" placeholder="Enter amount here.."/></td>
 
@@ -93,14 +91,11 @@
 </table>
               </div>
 
-              <div class="col-12 col-md col-lg-5">
+              <div class="col-12 col-md col-lg-4">
                 <table class="table">
 
   <tbody>
-    <tr class="no_border">
-      <td></td>
-      <td></td>
-    </tr>
+
     <tr>
       <td>Last Payment Date</td>
       <td><span t-esc="company1['d']"/></td>
@@ -137,6 +132,8 @@
               </li>
           </xpath>
       </template>
+
+
     <!-- explicit list view definition -->
     <!--
     <record model="ir.ui.view" id="myaccount_addons.list">
